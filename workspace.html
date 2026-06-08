@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace - GigLite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgDeep: '#121212', surface: '#1E1E1E', surfaceHover: '#2A2A2A',
+                        accent: '#00E5FF', accentHover: '#00B8CC', textSecondary: '#B3B3B3',
+                        borderDark: '#333333', danger: '#FF5722'
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #333333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444444; }
+        .custom-select-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B3B3B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5em;
+        }
+    </style>
+</head>
+<body class="bg-bgDeep text-white h-screen flex font-sans overflow-hidden">
+
+    <aside class="w-64 bg-surface border-r border-borderDark flex flex-col transition-transform duration-300 z-20 absolute md:relative h-full transform -translate-x-full md:translate-x-0" id="sidebar">
+        <div class="p-6 border-b border-borderDark"><h2 class="text-2xl font-bold text-accent">GigLite</h2></div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-textSecondary hover:bg-surfaceHover hover:text-white rounded-lg font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="workspace.html" class="flex items-center gap-3 px-4 py-3 bg-surfaceHover text-accent rounded-lg font-semibold">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                Workspace
+            </a>
+        </nav>
+        <div class="p-4 border-t border-borderDark">
+            <button onclick="window.location.href='login.html'" class="w-full text-left px-4 py-3 text-danger hover:bg-surfaceHover rounded-lg font-medium flex items-center gap-2">
+                Logout
+            </button>
+        </div>
+    </aside>
+
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-70 z-10 hidden md:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+        <header class="bg-surface border-b border-borderDark p-4 flex justify-between items-center md:hidden">
+            <h2 class="text-xl font-bold text-accent">GigLite</h2>
+            <button onclick="toggleSidebar()" class="text-textSecondary hover:text-white focus:outline-none">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-6 md:p-10">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4 border-b border-borderDark pb-6">
+                <div>
+                    <h1 class="text-3xl font-extrabold mb-1 tracking-tight" id="header-title">Technical Rider & Setlist</h1>
+                    <p class="text-textSecondary text-lg flex items-center gap-2">
+                        <span id="header-event-name">WaguFast Pre-Event</span> 
+                        <span class="text-accent/30">•</span> 
+                        <span id="header-event-date">May 15, 2026</span>
+                    </p>
+                </div>
+                <button onclick="window.location.href='export.html'" class="bg-accent hover:bg-accentHover text-black font-bold py-3 px-8 rounded-xl transition shadow-[0_0_15px_rgba(0,229,255,0.3)] flex items-center gap-2 group">
+                    Review & Export 
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                
+                <section class="bg-surface border border-borderDark rounded-2xl p-6 md:p-8 flex flex-col h-[calc(100vh-250px)] lg:h-auto overflow-y-auto">
+                    <h3 class="text-xl font-bold text-accent border-b border-borderDark pb-4 mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        Equipment Needs
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <label class="block text-textSecondary text-sm font-bold uppercase tracking-wider mb-2">Performance Format</label>
+                        <select class="w-full bg-bgDeep border border-borderDark text-white rounded-xl p-4 focus:outline-none focus:border-accent focus:ring-1 appearance-none custom-select-icon">
+                            <option value="solo">Solo Performance</option>
+                            <option value="duo">Duo (Acoustic)</option>
+                            <option value="band" selected>Full Band Setup</option>
+                        </select>
+                    </div>
+
+                    <div id="equipment-list" class="space-y-4 mb-6">
+                        <div class="flex justify-between items-center bg-bgDeep border border-borderDark p-4 rounded-xl group">
+                            <span class="font-semibold text-accent cursor-pointer hover:underline flex items-center gap-2" onclick="openModal('routing-modal')">
+                                Vocal Mic 1 <svg class="w-4 h-4 text-accent/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </span>
+                            <div class="flex items-center gap-4 bg-surface rounded-lg p-1">
+                                <button onclick="updateCounter(this, -1)" class="w-8 h-8 rounded bg-surfaceHover hover:bg-accent hover:text-black font-bold">-</button>
+                                <span class="w-4 text-center font-bold counter-val">1</span>
+                                <button onclick="updateCounter(this, 1)" class="w-8 h-8 rounded bg-surfaceHover hover:bg-accent hover:text-black font-bold">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="openModal('add-equipment-modal')" class="w-full border border-borderDark text-textSecondary hover:text-white hover:bg-surfaceHover font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-2 mt-auto">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Add Custom Equipment
+                    </button>
+                </section>
+
+                <section class="bg-surface border border-borderDark rounded-2xl p-6 md:p-8 flex flex-col h-[calc(100vh-250px)] lg:h-auto overflow-y-auto">
+                    <h3 class="text-xl font-bold text-accent border-b border-borderDark pb-4 mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+                        Performance Setlist
+                    </h3>
+                    
+                    <div class="flex-1 overflow-x-auto mb-6">
+                        <table class="w-full text-left border-collapse" id="setlist-table">
+                            <thead>
+                                <tr>
+                                    <th class="p-4 border-b border-borderDark text-textSecondary text-xs uppercase font-bold">Song Title & Lyrics</th>
+                                    <th class="p-4 border-b border-borderDark text-textSecondary text-xs uppercase font-bold">Genre</th>
+                                    <th class="p-4 border-b border-borderDark text-textSecondary text-xs uppercase font-bold text-right">Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody id="setlist-body" class="divide-y divide-borderDark/30">
+                                <tr class="hover:bg-bgDeep transition-colors">
+                                    <td class="p-4">
+                                        <div class="font-medium text-white">Neon Sky</div>
+                                        <div class="text-xs text-accent mt-1 cursor-pointer hover:underline" onclick="viewLyrics('Neon Sky', 'Under the neon sky, we ride tonight...\nLeaving the world behind, into the light.')">View Lyrics</div>
+                                    </td>
+                                    <td class="p-4 text-textSecondary">Synthwave</td>
+                                    <td class="p-4 text-textSecondary text-right font-mono text-sm">3:45</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="empty-state" class="hidden flex-col items-center justify-center p-10 text-center">
+                            <p class="text-textSecondary">Belum ada lagu. Tambahkan setlist pertamamu!</p>
+                        </div>
+                    </div>
+
+                    <button onclick="openModal('add-song-modal')" class="w-full border-2 border-dashed border-borderDark text-textSecondary hover:text-white hover:border-accent hover:bg-accent/5 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 mt-auto">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Add New Song
+                    </button>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <div id="routing-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-lg transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
+            <h2 class="text-2xl font-bold text-accent mb-6">Detailed Routing Notes</h2>
+            <textarea class="w-full h-32 bg-bgDeep text-white border border-borderDark rounded-xl p-4 focus:border-accent focus:ring-1 resize-none font-mono text-sm mb-6">Route signal to Yamaha MG16XU channel 1. Send AUX 1 to vocal In-Ear Monitors (IEM).</textarea>
+            <div class="flex justify-end gap-3 pt-4 border-t border-borderDark">
+                <button onclick="closeModal('routing-modal')" class="px-6 py-2 border border-borderDark hover:bg-surfaceHover rounded-xl">Cancel</button>
+                <button onclick="closeModal('routing-modal')" class="px-6 py-2 bg-accent text-black font-bold rounded-xl">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-equipment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-md transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
+            <h2 class="text-2xl font-bold text-accent mb-6">Add Custom Equipment</h2>
+            <div class="mb-6">
+                <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Equipment Name</label>
+                <input type="text" id="new-eq-name" placeholder="e.g. Keyboard Stand, Drum Shield..." class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent focus:ring-1">
+            </div>
+            <div class="flex justify-end gap-3 pt-4 border-t border-borderDark">
+                <button onclick="closeModal('add-equipment-modal')" class="px-6 py-2 border border-borderDark hover:bg-surfaceHover rounded-xl">Cancel</button>
+                <button onclick="submitNewEquipment()" class="px-6 py-2 bg-accent text-black font-bold rounded-xl shadow-[0_0_10px_rgba(0,229,255,0.3)]">Add Item</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="add-song-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-xl transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
+            <h2 class="text-2xl font-bold text-accent mb-6">Add Song to Setlist</h2>
+            
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-2 sm:col-span-1">
+                    <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Song Title</label>
+                    <input type="text" id="new-song-title" placeholder="Song name..." class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent">
+                </div>
+                <div class="col-span-2 sm:col-span-1 grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Genre</label>
+                        <input type="text" id="new-song-genre" placeholder="e.g. Pop" class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent">
+                    </div>
+                    <div>
+                        <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Duration</label>
+                        <input type="text" id="new-song-duration" placeholder="03:00" class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent font-mono">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Lyrics (Optional)</label>
+                <textarea id="new-song-lyrics" placeholder="Paste song lyrics here..." class="w-full h-32 bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent resize-none text-sm"></textarea>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-4 border-t border-borderDark">
+                <button onclick="closeModal('add-song-modal')" class="px-6 py-2 border border-borderDark hover:bg-surfaceHover rounded-xl">Cancel</button>
+                <button onclick="submitNewSong()" class="px-6 py-2 bg-accent text-black font-bold rounded-xl shadow-[0_0_10px_rgba(0,229,255,0.3)]">Add Song</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-lyrics-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-lg transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
+            <div class="flex justify-between items-start mb-6">
+                <h2 class="text-2xl font-bold text-accent" id="lyrics-modal-title">Song Title</h2>
+                <button onclick="closeModal('view-lyrics-modal')" class="text-textSecondary hover:text-white bg-surfaceHover p-1 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div class="w-full h-64 overflow-y-auto bg-bgDeep text-white border border-borderDark rounded-xl p-6 text-center leading-relaxed whitespace-pre-line" id="lyrics-modal-body">
+                </div>
+            <div class="flex justify-center pt-6">
+                <button onclick="closeModal('view-lyrics-modal')" class="px-8 py-2.5 border border-borderDark hover:bg-surfaceHover rounded-xl font-medium w-full">Tutup Lirik</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- Inisialisasi Data Baru (Dari Dashboard) ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedNewGig = localStorage.getItem('newGigData');
+            if (savedNewGig) {
+                const gigData = JSON.parse(savedNewGig);
+                document.getElementById('header-event-name').innerText = gigData.name;
+                document.getElementById('header-event-date').innerText = gigData.date;
+                
+                // Kosongkan Setlist & Equipment (Simulasi Gig Baru)
+                document.getElementById('setlist-body').innerHTML = '';
+                document.getElementById('equipment-list').innerHTML = '';
+                checkEmptyState();
+            }
+        });
+
+        // --- Logika Helper UI ---
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+            document.getElementById('mobile-overlay').classList.toggle('hidden');
+        }
+
+        function updateCounter(btnElement, change) {
+            const container = btnElement.parentElement;
+            const spanElement = container.querySelector('span');
+            let currentValue = parseInt(spanElement.innerText);
+            let newValue = currentValue + change;
+            if (newValue >= 0) spanElement.innerText = newValue;
+        }
+
+        function checkEmptyState() {
+            const tbody = document.getElementById('setlist-body');
+            const emptyState = document.getElementById('empty-state');
+            const table = document.getElementById('setlist-table');
+            
+            if (tbody.children.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                table.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+                table.classList.remove('hidden');
+            }
+        }
+
+        // --- Logika Sistem Modal ---
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = modal.querySelector('.modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => { 
+                modal.classList.remove('opacity-0'); 
+                content.classList.remove('scale-95'); 
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const content = modal.querySelector('.modal-content');
+            modal.classList.add('opacity-0'); 
+            content.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // Tutup modal jika klik background gelap
+        window.onclick = function(event) {
+            if (event.target.classList.contains('fixed')) {
+                closeModal(event.target.id);
+            }
+        }
+
+        // --- Fitur 1: Submit Custom Equipment ---
+        function submitNewEquipment() {
+            const nameInput = document.getElementById('new-eq-name');
+            const name = nameInput.value.trim();
+
+            if (!name) { alert("Masukkan nama equipment!"); return; }
+
+            const eqList = document.getElementById('equipment-list');
+            const newElement = document.createElement('div');
+            newElement.className = "flex justify-between items-center bg-bgDeep border border-borderDark p-4 rounded-xl";
+            
+            newElement.innerHTML = `
+                <span class="font-semibold text-white/90">${name}</span>
+                <div class="flex items-center gap-4 bg-surface rounded-lg p-1">
+                    <button onclick="updateCounter(this, -1)" class="w-8 h-8 rounded bg-surfaceHover hover:bg-accent hover:text-black font-bold">-</button>
+                    <span class="w-4 text-center font-bold counter-val">1</span>
+                    <button onclick="updateCounter(this, 1)" class="w-8 h-8 rounded bg-surfaceHover hover:bg-accent hover:text-black font-bold">+</button>
+                </div>
+            `;
+            
+            eqList.appendChild(newElement);
+            nameInput.value = ''; // Reset input
+            closeModal('add-equipment-modal');
+        }
+
+        // --- Fitur 2: Submit New Song ---
+        function submitNewSong() {
+            const titleInput = document.getElementById('new-song-title');
+            const genreInput = document.getElementById('new-song-genre');
+            const durationInput = document.getElementById('new-song-duration');
+            const lyricsInput = document.getElementById('new-song-lyrics');
+
+            if (!titleInput.value) { alert("Judul lagu wajib diisi!"); return; }
+
+            const tbody = document.getElementById('setlist-body');
+            const newRow = document.createElement('tr');
+            newRow.className = "hover:bg-bgDeep transition-colors border-t border-borderDark/30";
+
+            // Enkripsi lirik agar aman dimasukkan ke dalam atribut fungsi HTML (mencegah error tanda kutip)
+            const safeLyrics = encodeURIComponent(lyricsInput.value || "Lirik belum ditambahkan.");
+            const safeTitle = encodeURIComponent(titleInput.value);
+
+            let lyricsLinkHTML = '';
+            if(lyricsInput.value.trim() !== '') {
+                lyricsLinkHTML = `<div class="text-xs text-accent mt-1 cursor-pointer hover:underline" onclick="viewLyrics('${safeTitle}', '${safeLyrics}')">View Lyrics</div>`;
+            }
+
+            newRow.innerHTML = `
+                <td class="p-4">
+                    <div class="font-medium text-white">${titleInput.value}</div>
+                    ${lyricsLinkHTML}
+                </td>
+                <td class="p-4 text-textSecondary">${genreInput.value || '-'}</td>
+                <td class="p-4 text-textSecondary text-right font-mono text-sm">${durationInput.value || '0:00'}</td>
+            `;
+
+            tbody.appendChild(newRow);
+            
+            // Bersihkan form
+            titleInput.value = ''; genreInput.value = ''; durationInput.value = ''; lyricsInput.value = '';
+            
+            closeModal('add-song-modal');
+            checkEmptyState();
+        }
+
+        // --- Fitur 3: View Lyrics ---
+        function viewLyrics(encodedTitle, encodedLyrics) {
+            const title = decodeURIComponent(encodedTitle);
+            const lyrics = decodeURIComponent(encodedLyrics);
+
+            document.getElementById('lyrics-modal-title').innerText = title;
+            document.getElementById('lyrics-modal-body').innerText = lyrics; // Menggunakan innerText untuk mempertahankan format baris baru (enter)
+            
+            openModal('view-lyrics-modal');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review & Export - GigLite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bgDeep: '#121212',
+                        surface: '#1E1E1E',
+                        surfaceHover: '#2A2A2A',
+                        accent: '#00E5FF',
+                        accentHover: '#00B8CC',
+                        textSecondary: '#B3B3B3',
+                        borderDark: '#333333',
+                        danger: '#FF5722'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Roboto', 'sans-serif'],
+                        serif: ['Merriweather', 'Georgia', 'serif'], // Font serif untuk dokumen cetak
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #121212; }
+        ::-webkit-scrollbar-thumb { background: #333333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444444; }
+
+        /* Pengaturan khusus saat di-print (Ctrl+P) */
+        @media print {
+            body { background-color: #FFFFFF !important; }
+            .a4-paper { box-shadow: none !important; margin: 0 !important; padding: 0 !important; max-width: 100% !important; }
+        }
+    </style>
+</head>
+<body class="bg-bgDeep text-white h-screen flex font-sans overflow-hidden">
+
+    <aside class="w-64 bg-surface border-r border-borderDark flex flex-col transition-transform duration-300 z-20 absolute md:relative h-full transform -translate-x-full md:translate-x-0 print:hidden" id="sidebar">
+        <div class="p-6 border-b border-borderDark">
+            <h2 class="text-2xl font-bold text-accent tracking-tight">GigLite</h2>
+        </div>
+        <nav class="flex-1 px-4 py-6 space-y-2">
+            <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-textSecondary hover:bg-surfaceHover hover:text-white rounded-lg font-medium transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                Dashboard
+            </a>
+            <a href="workspace.html" class="flex items-center gap-3 px-4 py-3 bg-surfaceHover text-accent rounded-lg font-semibold transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                Workspace
+            </a>
+        </nav>
+    </aside>
+
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-70 z-10 hidden md:hidden backdrop-blur-sm print:hidden" onclick="toggleSidebar()"></div>
+
+    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
+        
+        <header class="bg-surface border-b border-borderDark p-4 md:p-6 flex flex-col md:flex-row justify-between items-center gap-4 z-10 shadow-md print:hidden">
+            <div class="flex items-center w-full md:w-auto justify-between md:justify-start gap-4">
+                <button onclick="toggleSidebar()" class="md:hidden text-textSecondary hover:text-white focus:outline-none">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <button onclick="window.location.href='workspace.html'" class="text-textSecondary hover:text-white transition-colors flex items-center gap-2 font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    Back to Workspace
+                </button>
+            </div>
+            
+            <div class="flex gap-3 w-full md:w-auto">
+                <button onclick="alert('Link berhasil di-copy ke clipboard!')" class="flex-1 md:flex-none border border-borderDark bg-surfaceHover text-white hover:border-textSecondary font-semibold py-2.5 px-6 rounded-xl transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                    Generate Link
+                </button>
+                <button onclick="window.print()" class="flex-1 md:flex-none bg-accent hover:bg-accentHover text-black font-bold py-2.5 px-6 rounded-xl transition-colors shadow-[0_0_15px_rgba(0,229,255,0.2)] flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download PDF
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-4 md:p-10 bg-bgDeep flex justify-center print:p-0 print:overflow-visible">
+            
+            <div class="a4-paper bg-white text-black w-full max-w-[21cm] min-h-[29.7cm] p-10 md:p-16 rounded-sm shadow-2xl relative">
+                
+                <div class="border-b-4 border-black pb-6 mb-8 flex justify-between items-end">
+                    <div>
+                        <h1 class="text-4xl font-black uppercase tracking-tight mb-2">Technical Rider</h1>
+                        <p class="text-lg text-gray-600 font-medium tracking-widest">OFFICIAL STAGE DOCUMENT</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-bold text-xl">Dapur Seni</p>
+                        <p class="text-gray-600">PIC: Farrel Tryardan Kusuma</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-6 mb-10 bg-gray-100 p-6 rounded-lg">
+                    <div>
+                        <p class="text-sm text-gray-500 font-bold uppercase mb-1">Event Name</p>
+                        <p class="text-lg font-semibold">WaguFast Pre-Event</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 font-bold uppercase mb-1">Date</p>
+                        <p class="text-lg font-semibold">May 15, 2026</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500 font-bold uppercase mb-1">Performance Format</p>
+                        <p class="text-lg font-semibold">Full Band</p>
+                    </div>
+                </div>
+
+                <div class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-black text-white px-3 py-1 rounded text-lg">1</span> Equipment Needs
+                    </h3>
+                    <ul class="list-disc ml-8 space-y-3 text-lg">
+                        <li><strong>1x Vocal Mic 1</strong> 
+                            <span class="block text-sm text-gray-600 mt-1 italic border-l-2 border-gray-300 pl-3">Routing: Route signal to Yamaha MG16XU channel 1. Send AUX 1 to vocal In-Ear Monitors (IEM).</span>
+                        </li>
+                        <li><strong>2x DI Box</strong> (Stereo)</li>
+                        <li><strong>3x Instrument Jack Cable</strong> (TS)</li>
+                    </ul>
+                </div>
+
+                <div class="mb-12">
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-black text-white px-3 py-1 rounded text-lg">2</span> Performance Setlist
+                    </h3>
+                    <table class="w-full text-left border-collapse border border-black">
+                        <thead>
+                            <tr class="bg-black text-white">
+                                <th class="p-3 border border-black w-12 text-center">#</th>
+                                <th class="p-3 border border-black">Song Title</th>
+                                <th class="p-3 border border-black">Genre</th>
+                                <th class="p-3 border border-black w-32 text-center">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-lg">
+                            <tr>
+                                <td class="p-3 border border-black text-center font-bold">1</td>
+                                <td class="p-3 border border-black font-semibold">Neon Sky</td>
+                                <td class="p-3 border border-black text-gray-600">Synthwave</td>
+                                <td class="p-3 border border-black text-center">3:45</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border border-black text-center font-bold">2</td>
+                                <td class="p-3 border border-black font-semibold">Midnight Drive</td>
+                                <td class="p-3 border border-black text-gray-600">Indie Rock</td>
+                                <td class="p-3 border border-black text-center">4:10</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 border border-black text-center font-bold">3</td>
+                                <td class="p-3 border border-black font-semibold">Echoes</td>
+                                <td class="p-3 border border-black text-gray-600">Acoustic</td>
+                                <td class="p-3 border border-black text-center">2:50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="absolute bottom-10 left-10 right-10 border-t border-gray-300 pt-4 text-center text-sm text-gray-500">
+                    <p>Dokumen ini di-*generate* secara otomatis melalui GigLite Web.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('mobile-overlay');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
