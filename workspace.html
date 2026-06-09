@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workspace - GigLite</title>
+    <title>GigLite - Workspace</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        bgDeep: '#121212', surface: '#1E1E1E', surfaceHover: '#2A2A2A',
-                        accent: '#00E5FF', accentHover: '#00B8CC', textSecondary: '#B3B3B3',
-                        borderDark: '#333333', danger: '#FF5722'
+                        spBase: '#000000',       
+                        spSurface: '#121212',    
+                        spElevated: '#181818',   
+                        spHover: '#282828',      
+                        spTextSec: '#A7A7A7',    
+                        accent: '#00E5FF',       
+                        accentHover: '#00B8CC'
                     },
                     fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
@@ -21,253 +25,368 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #333333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444444; }
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #5a5a5a; border-radius: 6px; border: 3px solid #121212; }
+        ::-webkit-scrollbar-thumb:hover { background: #b3b3b3; }
+        
+        .glowing-logo { filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(0, 229, 255, 0.8)); }
+        
         .custom-select-icon {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23B3B3B3'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-            background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5em;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23A7A7A7'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.2em;
         }
     </style>
 </head>
-<body class="bg-bgDeep text-white h-screen flex font-sans overflow-hidden">
+<body class="bg-spBase text-white h-screen flex font-sans overflow-hidden p-2 gap-2">
 
-    <aside class="w-64 bg-surface border-r border-borderDark flex flex-col transition-transform duration-300 z-20 absolute md:relative h-full transform -translate-x-full md:translate-x-0" id="sidebar">
-        <div class="p-6 border-b border-borderDark"><h2 class="text-2xl font-bold text-accent">GigLite</h2></div>
-        <nav class="flex-1 px-4 py-6 space-y-2">
-            <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-textSecondary hover:bg-surfaceHover hover:text-white rounded-lg font-medium">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                Dashboard
-            </a>
-            <a href="workspace.html" class="flex items-center gap-3 px-4 py-3 bg-surfaceHover text-accent rounded-lg font-semibold">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                Workspace
-            </a>
-        </nav>
-        <div class="p-4 border-t border-borderDark">
-            <button onclick="window.location.href='index.html'" class="w-full text-left px-4 py-3 text-danger hover:bg-surfaceHover rounded-lg font-medium flex items-center gap-2">
+    <aside class="w-[300px] bg-spSurface rounded-lg flex flex-col hidden md:flex h-full">
+        <div class="p-6 pb-2">
+            <div class="flex items-center gap-3 mb-8 cursor-pointer" onclick="window.location.href='dashboard.html'">
+                <img src="LOGO DS FIX.png" alt="Dapur Seni Logo" class="w-10 h-10 object-contain glowing-logo transition-all hover:scale-105 cursor-pointer">
+                <h2 class="text-2xl font-extrabold tracking-tight">GigLite</h2>
+            </div>
+
+            <ul class="space-y-4 font-bold text-spTextSec">
+                <li>
+                    <a href="dashboard.html" class="flex items-center gap-4 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.5 3.247a1 1 0 00-1 0L4 7.577V20h4.5v-6a1 1 0 011-1h5a1 1 0 011 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 013 0l9 5.196a1 1 0 01.5.866V21a1 1 0 01-1 1h-6.5a1 1 0 01-1-1v-6h-3v6a1 1 0 01-1 1H3a1 1 0 01-1-1V7.577a1 1 0 01.5-.866l9-5.196z"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex-1 overflow-y-auto mt-4 px-4 py-2 border-t border-spHover/50">
+            <div class="flex justify-between items-center mb-4 px-2 text-spTextSec hover:text-white transition-colors cursor-pointer" onclick="openCreateModal()">
+                <div class="flex items-center gap-2 font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"></path></svg>
+                    Your Schedules
+                </div>
+                <button class="hover:bg-spHover p-1 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
+            </div>
+            
+            <div class="space-y-2" id="sidebar-gig-list"></div>
+        </div>
+
+        <div class="p-4 border-t border-spHover/50">
+            <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-500 font-bold hover:bg-white/5 rounded-md transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Logout
             </button>
         </div>
     </aside>
 
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-70 z-10 hidden md:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
-
-    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
-        <div class="flex-1 overflow-y-auto p-6 md:p-10">
-            
-            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4 border-b border-borderDark pb-6">
-                <div>
-                    <h1 class="text-3xl font-extrabold mb-1 tracking-tight">Technical Rider & Setlist</h1>
-                    <p class="text-textSecondary text-lg flex items-center gap-2">
-                        <span id="header-event-name">Nama Event</span> 
-                        <span class="text-accent/30">•</span> 
-                        <span id="header-event-date">Tanggal</span>
-                    </p>
-                </div>
-                <button onclick="window.location.href='export.html'" class="bg-accent hover:bg-accentHover text-black font-bold py-3 px-8 rounded-xl transition shadow-[0_0_15px_rgba(0,229,255,0.3)] flex items-center gap-2 group">
-                    Review & Export 
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+    <main class="flex-1 bg-spSurface rounded-lg flex flex-col relative h-full overflow-hidden">
+        
+        <header class="h-16 flex items-center justify-between px-6 bg-transparent absolute top-0 left-0 w-full z-30 transition-all" id="main-header">
+            <div class="flex gap-2">
+                <button onclick="window.location.href='dashboard.html'" class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/80 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-spTextSec cursor-not-allowed">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
             </div>
+            <div class="flex items-center gap-4">
+                <button onclick="window.location.href='export.html'" class="hidden md:block bg-white text-black text-sm font-bold px-4 py-1.5 rounded-full hover:scale-105 transition-transform">Review & Export</button>
+                <button onclick="handleLogout()" class="w-8 h-8 rounded-full bg-spHover flex items-center justify-center border-4 border-black hover:scale-105 transition-transform" title="Logout">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Farrel" alt="Profile" class="rounded-full">
+                </button>
+            </div>
+        </header>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+        <div class="flex-1 overflow-y-auto" id="main-scroll-container">
+            
+            <div id="hero-header" class="relative pt-24 pb-8 px-8 flex flex-col md:flex-row items-end gap-6 transition-colors duration-500 bg-gradient-to-b from-blue-900 to-spSurface">
+                <div id="hero-initial" class="w-48 h-48 md:w-60 md:h-60 bg-spElevated shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center justify-center text-8xl font-black rounded-md">
+                    W
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="text-xs font-bold uppercase tracking-widest">Workspace Event</span>
+                    <h1 id="hero-title" class="text-5xl md:text-7xl font-black tracking-tighter mb-2">Event Name</h1>
+                    <div class="flex items-center gap-2 text-sm font-bold">
+                        <img src="LOGO DS FIX.png" alt="DS" class="w-5 h-5 object-contain glowing-logo">
+                        <span>Dapur Seni</span>
+                        <span class="text-spTextSec">•</span>
+                        <span id="hero-date">May 15, 2026</span>
+                        <span class="text-spTextSec">•</span>
+                        <span id="hero-format" class="text-accent">Full Band Setup</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8 grid grid-cols-1 lg:grid-cols-12 gap-10 bg-spSurface/40 relative z-10">
                 
-                <section class="bg-surface border border-borderDark rounded-2xl p-6 md:p-8 flex flex-col">
-                    <h3 class="text-xl font-bold text-accent border-b border-borderDark pb-4 mb-6 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                        Equipment Needs
-                    </h3>
-                    
-                    <div class="mb-6">
-                        <label class="block text-textSecondary text-sm font-bold uppercase tracking-wider mb-2">Performance Format</label>
-                        <select id="gig-format" onchange="saveFormatChange()" class="w-full bg-bgDeep border border-borderDark text-white rounded-xl p-4 focus:outline-none focus:border-accent focus:ring-1 appearance-none custom-select-icon">
-                            <option value="solo">Solo Performance</option>
-                            <option value="duo">Duo (Acoustic)</option>
-                            <option value="band">Full Band Setup</option>
-                        </select>
-                    </div>
-
-                    <div id="equipment-list" class="space-y-4 mb-6 flex-1 overflow-y-auto pr-2">
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-spTextSec" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            Stage Tech Rider
+                        </h3>
+                        
+                        <div class="mb-6">
+                            <select id="gig-format" onchange="saveFormatChange()" class="w-full bg-spHover text-white font-bold rounded-md p-3 focus:outline-none appearance-none custom-select-icon text-sm">
+                                <option value="solo">Solo Performance</option>
+                                <option value="duo">Duo (Acoustic)</option>
+                                <option value="band">Full Band Setup</option>
+                            </select>
                         </div>
 
-                    <button onclick="openModal('add-equipment-modal')" class="w-full border border-borderDark text-textSecondary hover:text-white hover:bg-surfaceHover font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Add Custom Equipment
-                    </button>
-                </section>
+                        <div id="equipment-list" class="space-y-1">
+                            </div>
 
-                <section class="bg-surface border border-borderDark rounded-2xl p-6 md:p-8 flex flex-col h-full">
-                    <h3 class="text-xl font-bold text-accent border-b border-borderDark pb-4 mb-6 flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
-                        Performance Setlist
-                    </h3>
-                    
-                    <div class="flex-1 overflow-x-auto mb-6">
-                        <table class="w-full text-left border-collapse" id="setlist-table">
-                            <thead>
-                                <tr>
-                                    <th class="p-4 border-b border-borderDark text-textSecondary text-xs uppercase font-bold">Song Title & Lyrics</th>
-                                    <th class="p-4 border-b border-borderDark text-textSecondary text-xs uppercase font-bold">Genre</th>
-                                    <th class="p-4 border-b border-borderDark text-textSecondary text-xs uppercase font-bold text-right">Duration</th>
-                                </tr>
-                            </thead>
-                            <tbody id="setlist-body" class="divide-y divide-borderDark/30">
-                                </tbody>
-                        </table>
-                        <div id="empty-state" class="hidden flex-col items-center justify-center p-10 text-center">
-                            <p class="text-textSecondary">Belum ada lagu. Tambahkan setlist pertamamu!</p>
-                        </div>
+                        <button onclick="openModal('add-equipment-modal')" class="w-full mt-4 flex items-center justify-center gap-2 py-3 text-sm font-bold text-spTextSec hover:text-white border border-spHover hover:border-white/20 rounded-full transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Add Custom Equipment
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold">Setlist Performance</h3>
+                        <button onclick="openModal('add-song-modal')" class="bg-accent text-black font-bold p-3.5 rounded-full hover:scale-105 transition-transform shadow-[0_8px_15px_rgba(0,0,0,0.3)] hover:bg-accentHover">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
                     </div>
 
-                    <button onclick="openModal('add-song-modal')" class="w-full border-2 border-dashed border-borderDark text-textSecondary hover:text-white hover:border-accent hover:bg-accent/5 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        Add New Song
-                    </button>
-                </section>
+                    <div class="grid grid-cols-12 px-4 py-2 border-b border-white/10 text-xs font-bold text-spTextSec uppercase tracking-widest mb-2">
+                        <div class="col-span-1">#</div>
+                        <div class="col-span-7">Title</div>
+                        <div class="col-span-2">Genre</div>
+                        <div class="col-span-2 text-right">Dur</div>
+                    </div>
+
+                    <div id="setlist-body" class="space-y-1">
+                        </div>
+
+                    <div id="empty-state" class="hidden py-20 flex-col items-center justify-center text-center opacity-40">
+                        <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+                        <p class="font-bold">Setlist masih kosong</p>
+                        <p class="text-sm">Klik tombol + cyan untuk menambah lagu</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <div id="routing-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-lg transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
-            <h2 class="text-2xl font-bold text-accent mb-6">Detailed Routing Notes</h2>
-            <textarea id="routing-textarea" class="w-full h-32 bg-bgDeep text-white border border-borderDark rounded-xl p-4 focus:border-accent focus:ring-1 resize-none font-mono text-sm mb-6"></textarea>
-            <div class="flex justify-end gap-3 pt-4 border-t border-borderDark">
-                <button onclick="closeModal('routing-modal')" class="px-6 py-2 border border-borderDark hover:bg-surfaceHover rounded-xl">Cancel</button>
-                <button onclick="saveRoutingNotes()" class="px-6 py-2 bg-accent text-black font-bold rounded-xl">Save</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="add-equipment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-md transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
-            <h2 class="text-2xl font-bold text-accent mb-6">Add Custom Equipment</h2>
-            <div class="mb-6">
-                <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Equipment Name</label>
-                <input type="text" id="new-eq-name" placeholder="e.g. Keyboard Stand, Drum Shield..." class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent focus:ring-1">
-            </div>
-            <div class="flex justify-end gap-3 pt-4 border-t border-borderDark">
-                <button onclick="closeModal('add-equipment-modal')" class="px-6 py-2 border border-borderDark hover:bg-surfaceHover rounded-xl">Cancel</button>
-                <button onclick="submitNewEquipment()" class="px-6 py-2 bg-accent text-black font-bold rounded-xl">Add Item</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="add-song-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-xl transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
-            <h2 class="text-2xl font-bold text-accent mb-6">Add Song to Setlist</h2>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="col-span-2 sm:col-span-1">
-                    <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Song Title</label>
-                    <input type="text" id="new-song-title" placeholder="Song name..." class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent">
+    <div id="create-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-spElevated p-6 rounded-lg w-11/12 max-w-md shadow-2xl transform scale-95 transition-transform duration-200 modal-content">
+            <h2 class="text-2xl font-bold mb-6 text-center">Buat Jadwal Baru</h2>
+            <div class="space-y-4 mb-8">
+                <div>
+                    <label class="block text-sm font-bold mb-2">Nama Acara</label>
+                    <input type="text" id="new-gig-name" placeholder="Tambahkan nama acara" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
                 </div>
-                <div class="col-span-2 sm:col-span-1 grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Genre</label>
-                        <input type="text" id="new-song-genre" placeholder="e.g. Pop" class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent">
-                    </div>
-                    <div>
-                        <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Duration</label>
-                        <input type="text" id="new-song-duration" placeholder="03:00" class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent font-mono">
-                    </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">Tanggal</label>
+                    <input type="date" id="new-gig-date" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent [color-scheme:dark]">
                 </div>
             </div>
-            <div class="mb-6">
-                <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Lyrics</label>
-                <textarea id="new-song-lyrics" placeholder="Paste song lyrics here..." class="w-full h-32 bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent resize-none text-sm"></textarea>
-            </div>
-            <div class="flex justify-end gap-3 pt-4 border-t border-borderDark">
-                <button onclick="closeModal('add-song-modal')" class="px-6 py-2 border border-borderDark hover:bg-surfaceHover rounded-xl">Cancel</button>
-                <button onclick="submitNewSong()" class="px-6 py-2 bg-accent text-black font-bold rounded-xl">Add Song</button>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal('create-modal')" class="px-6 py-3 text-white font-bold hover:scale-105 transition-transform">Batal</button>
+                <button onclick="createNewGig()" class="px-8 py-3 bg-accent text-black font-bold rounded-full hover:scale-105 transition-transform">Simpan</button>
             </div>
         </div>
     </div>
 
-    <div id="view-lyrics-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-lg transform scale-95 transition-transform duration-300 shadow-2xl modal-content">
-            <div class="flex justify-between items-start mb-6">
-                <h2 class="text-2xl font-bold text-accent" id="lyrics-modal-title">Song Title</h2>
-                <button onclick="closeModal('view-lyrics-modal')" class="text-textSecondary hover:text-white bg-surfaceHover p-1 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+    <div id="routing-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-spElevated p-8 rounded-lg w-11/12 max-w-md shadow-2xl transform scale-95 transition-transform duration-200 modal-content">
+            <h2 class="text-2xl font-bold mb-6">Routing Notes</h2>
+            <textarea id="routing-textarea" class="w-full h-32 bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent resize-none font-mono text-sm mb-6"></textarea>
+            <div class="flex justify-end gap-2 font-bold">
+                <button onclick="closeModal('routing-modal')" class="px-4 py-2 hover:scale-105 transition-transform">Batal</button>
+                <button onclick="saveRoutingNotes()" class="bg-accent text-black px-6 py-2 rounded-full hover:scale-105 transition-transform">Simpan</button>
             </div>
-            <div class="w-full h-64 overflow-y-auto bg-bgDeep text-white border border-borderDark rounded-xl p-6 text-center leading-relaxed whitespace-pre-line" id="lyrics-modal-body"></div>
-            <div class="flex justify-center pt-6">
-                <button onclick="closeModal('view-lyrics-modal')" class="px-8 py-2.5 border border-borderDark hover:bg-surfaceHover rounded-xl font-medium w-full">Tutup Lirik</button>
+        </div>
+    </div>
+
+    <div id="add-equipment-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-spElevated p-8 rounded-lg w-11/12 max-w-md shadow-2xl transform scale-95 transition-transform duration-200 modal-content">
+            <h2 class="text-2xl font-bold mb-6">Tambah Alat</h2>
+            <input type="text" id="new-eq-name" placeholder="Nama alat (misal: Wireless Mic)" class="w-full bg-spHover text-white rounded-md p-3 mb-6 focus:outline-none focus:ring-2 focus:ring-accent">
+            <div class="flex justify-end gap-2 font-bold">
+                <button onclick="closeModal('add-equipment-modal')" class="px-4 py-2 hover:scale-105 transition-transform">Batal</button>
+                <button onclick="submitNewEquipment()" class="bg-accent text-black px-6 py-2 rounded-full hover:scale-105 transition-transform">Tambah</button>
             </div>
+        </div>
+    </div>
+
+    <div id="add-song-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-spElevated p-8 rounded-lg w-11/12 max-w-2xl shadow-2xl transform scale-95 transition-transform duration-200 modal-content">
+            <h2 class="text-2xl font-bold mb-6">Tambah Lagu Baru</h2>
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="col-span-3 sm:col-span-1">
+                    <label class="block text-xs font-bold text-spTextSec uppercase mb-2">Judul Lagu</label>
+                    <input type="text" id="new-song-title" placeholder="..." class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
+                </div>
+                <div class="col-span-3 sm:col-span-1">
+                    <label class="block text-xs font-bold text-spTextSec uppercase mb-2">Genre</label>
+                    <input type="text" id="new-song-genre" placeholder="Pop" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
+                </div>
+                <div class="col-span-3 sm:col-span-1">
+                    <label class="block text-xs font-bold text-spTextSec uppercase mb-2">Durasi</label>
+                    <input type="text" id="new-song-duration" placeholder="03:00" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
+                </div>
+            </div>
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="col-span-1">
+                    <label class="block text-xs font-bold text-spTextSec uppercase mb-2">Key</label>
+                    <input type="text" id="new-song-key" placeholder="C" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
+                </div>
+                <div class="col-span-1">
+                    <label class="block text-xs font-bold text-spTextSec uppercase mb-2">BPM</label>
+                    <input type="number" id="new-song-bpm" placeholder="120" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
+                </div>
+                <div class="col-span-1">
+                    <label class="block text-xs font-bold text-spTextSec uppercase mb-2">Flow</label>
+                    <select id="new-song-transition" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none appearance-none custom-select-icon focus:ring-2 focus:ring-accent">
+                        <option value="pause">⏸ Pause</option>
+                        <option value="segue">⏭ Segue</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-8">
+                <label class="block text-xs font-bold text-spTextSec uppercase mb-2">Lirik</label>
+                <textarea id="new-song-lyrics" placeholder="Tempel lirik di sini..." class="w-full h-32 bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent resize-none text-sm"></textarea>
+            </div>
+            <div class="flex justify-end gap-2 font-bold">
+                <button onclick="closeModal('add-song-modal')" class="px-4 py-2 hover:scale-105 transition-transform">Batal</button>
+                <button onclick="submitNewSong()" class="bg-accent text-black px-6 py-2 rounded-full hover:scale-105 transition-transform">Simpan Lagu</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-lyrics-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="p-8 w-full max-w-2xl text-center flex flex-col items-center">
+            <h2 class="text-4xl font-black mb-8 text-accent" id="lyrics-modal-title">Song Title</h2>
+            <div class="w-full max-h-[60vh] overflow-y-auto text-xl font-bold leading-loose whitespace-pre-line pr-4" id="lyrics-modal-body"></div>
+            <button onclick="closeModal('view-lyrics-modal')" class="mt-12 bg-white text-black font-bold px-10 py-3 rounded-full hover:scale-105 transition-transform">Tutup</button>
         </div>
     </div>
 
     <script>
+        function handleLogout() {
+            localStorage.removeItem('giglite_session');
+            localStorage.removeItem('active_gig_id');
+            window.location.href = 'index.html';
+        }
+
         let currentGigId = '';
         let currentGigData = {};
 
-        // --- LOAD DATA AWAL ---
         document.addEventListener('DOMContentLoaded', () => {
-            currentGigId = localStorage.getItem('active_gig_id') || '1715000000000'; // Fallback ke WaguFast jika kosong
+            currentGigId = localStorage.getItem('active_gig_id');
+            if(!currentGigId) { window.location.href = 'dashboard.html'; return; }
             
             let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
             let gig = gigs.find(g => g.id === currentGigId);
 
             if (gig) {
                 currentGigData = gig;
-                
-                // Jika properti sub-data belum ada di database, kita inisialisasi default-nya
                 if (!currentGigData.format) currentGigData.format = 'band';
-                if (!currentGigData.equipment) {
-                    // Berikan default seadanya jika ini WaguFast bawaan awal
-                    currentGigData.equipment = currentGigId === '1715000000000' ? [
-                        { name: 'Vocal Mic 1', count: 1, notes: 'Route signal to Yamaha MG16XU channel 1. Send AUX 1 to vocal In-Ear Monitors (IEM).' },
-                        { name: 'DI Box (Stereo)', count: 2, notes: '' },
-                        { name: 'Jack Cable (TS)', count: 3, notes: '' }
-                    ] : [];
-                }
-                if (!currentGigData.setlist) {
-                    currentGigData.setlist = currentGigId === '1715000000000' ? [
-                        { title: 'Neon Sky', genre: 'Synthwave', duration: '3:45', lyrics: 'Under the neon sky, we ride tonight...\nLeaving the world behind, into the light.' }
-                    ] : [];
-                }
+                if (!currentGigData.equipment) currentGigData.equipment = [];
+                if (!currentGigData.setlist) currentGigData.setlist = [];
 
-                // Gambar UI berdasarkan database
-                document.getElementById('header-event-name').innerText = currentGigData.name;
-                document.getElementById('header-event-date').innerText = currentGigData.date;
-                document.getElementById('gig-format').value = currentGigData.format;
-
+                renderGigsSidebar();
+                updateHeroSection();
                 renderEquipment();
                 renderSetlist();
             }
+
+            // Scroll Logic for Header Background
+            const scrollContainer = document.getElementById('main-scroll-container');
+            const mainHeader = document.getElementById('main-header');
+            
+            scrollContainer.addEventListener('scroll', () => {
+                if (scrollContainer.scrollTop > 50) {
+                    mainHeader.classList.add('bg-spSurface/90', 'backdrop-blur-md');
+                    mainHeader.classList.remove('bg-transparent');
+                } else {
+                    mainHeader.classList.remove('bg-spSurface/90', 'backdrop-blur-md');
+                    mainHeader.classList.add('bg-transparent');
+                }
+            });
         });
 
-        // --- SAVE TO LOCALSTORAGE ---
-        function saveToGlobalDatabase() {
-            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
-            let index = gigs.findIndex(g => g.id === currentGigId);
-            if (index !== -1) {
-                gigs[index] = currentGigData;
-                localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
-            }
+        function getInitialGradient(str) {
+            const charCode = str.charCodeAt(0) || 0;
+            const colors = [
+                'from-purple-800 to-spSurface', 'from-blue-800 to-spSurface', 
+                'from-red-800 to-spSurface', 'from-green-800 to-spSurface',
+                'from-cyan-800 to-spSurface'
+            ];
+            return colors[charCode % colors.length];
         }
 
-        // --- RENDER FUNCTIONS ---
+        function updateHeroSection() {
+            const initial = currentGigData.name.charAt(0).toUpperCase();
+            const gradClass = getInitialGradient(currentGigData.name);
+            
+            document.getElementById('hero-initial').innerText = initial;
+            // Menyamakan warna background huruf depan dengan dashboard
+            const dashboardColors = [
+                'from-purple-600 to-blue-600', 'from-green-500 to-emerald-700', 
+                'from-orange-500 to-red-600', 'from-pink-500 to-rose-700',
+                'from-cyan-500 to-blue-700'
+            ];
+            const dashGrad = dashboardColors[(currentGigData.name.charCodeAt(0) || 0) % dashboardColors.length];
+            document.getElementById('hero-initial').className = `w-48 h-48 md:w-60 md:h-60 bg-gradient-to-br ${dashGrad} shadow-[0_8px_40px_rgba(0,0,0,0.5)] flex items-center justify-center text-8xl font-black rounded-md`;
+
+            document.getElementById('hero-title').innerText = currentGigData.name;
+            document.getElementById('hero-date').innerText = currentGigData.date;
+            
+            const formatText = currentGigData.format === 'band' ? 'Full Band Setup' : currentGigData.format === 'duo' ? 'Duo Acoustic' : 'Solo Performance';
+            document.getElementById('hero-format').innerText = formatText;
+            document.getElementById('hero-header').className = `relative pt-24 pb-8 px-8 flex flex-col md:flex-row items-end gap-6 transition-colors duration-500 bg-gradient-to-b ${gradClass}`;
+        }
+
+        function renderGigsSidebar() {
+            const sidebarList = document.getElementById('sidebar-gig-list');
+            sidebarList.innerHTML = '';
+            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
+            
+            const dashboardColors = [
+                'from-purple-600 to-blue-600', 'from-green-500 to-emerald-700', 
+                'from-orange-500 to-red-600', 'from-pink-500 to-rose-700',
+                'from-cyan-500 to-blue-700'
+            ];
+
+            gigs.forEach(g => {
+                const initial = g.name.charAt(0).toUpperCase();
+                const activeClass = g.id === currentGigId ? 'bg-spHover text-white' : 'text-spTextSec hover:text-white hover:bg-spHover';
+                const gradClass = dashboardColors[(g.name.charCodeAt(0) || 0) % dashboardColors.length];
+                const isFinalized = g.status === 'finalized';
+
+                sidebarList.innerHTML += `
+                    <div class="flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors ${activeClass}" onclick="switchGig('${g.id}')">
+                        <div class="w-12 h-12 rounded bg-gradient-to-br ${gradClass} flex shrink-0 items-center justify-center text-lg font-bold shadow-md text-white border border-white/5">${initial}</div>
+                        <div class="overflow-hidden">
+                            <h4 class="font-bold text-sm truncate ${g.id === currentGigId ? 'text-white' : ''}">${g.name}</h4>
+                            <p class="text-xs truncate ${g.id === currentGigId ? 'text-spTextSec' : ''}">${isFinalized ? 'Event' : 'Draft'}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function switchGig(id) {
+            localStorage.setItem('active_gig_id', id);
+            window.location.reload();
+        }
+
         function renderEquipment() {
             const list = document.getElementById('equipment-list');
             list.innerHTML = '';
-            
             currentGigData.equipment.forEach((item, index) => {
-                const hasNotes = item.name === 'Vocal Mic 1'; // Sesuai instruksi awal, Vocal Mic 1 bisa diklik
-                const nameHTML = hasNotes 
-                    ? `<span class="font-semibold text-accent cursor-pointer hover:underline flex items-center gap-2" onclick="openRoutingModal(${index})">
-                        ${item.name} <svg class="w-4 h-4 text-accent/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                       </span>`
-                    : `<span class="font-semibold text-white/90">${item.name}</span>`;
-
                 list.innerHTML += `
-                    <div class="flex justify-between items-center bg-bgDeep border border-borderDark p-4 rounded-xl">
-                        ${nameHTML}
-                        <div class="flex items-center gap-4 bg-surface rounded-lg p-1">
-                            <button onclick="changeQty(${index}, -1)" class="w-8 h-8 rounded bg-surfaceHover hover:bg-accent hover:text-black font-bold">-</button>
-                            <span class="w-4 text-center font-bold">${item.count}</span>
-                            <button onclick="changeQty(${index}, 1)" class="w-8 h-8 rounded bg-surfaceHover hover:bg-accent hover:text-black font-bold">+</button>
+                    <div class="flex justify-between items-center p-3 rounded-md hover:bg-white/5 transition-colors group">
+                        <span class="text-sm font-medium text-spTextSec group-hover:text-white cursor-pointer hover:underline" onclick="openRoutingModal(${index})">${item.name}</span>
+                        <div class="flex items-center gap-3">
+                            <button onclick="changeQty(${index}, -1)" class="w-6 h-6 rounded-full bg-spHover flex items-center justify-center text-xs hover:bg-spTextSec transition-colors">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.count}</span>
+                            <button onclick="changeQty(${index}, 1)" class="w-6 h-6 rounded-full bg-spHover flex items-center justify-center text-xs hover:bg-spTextSec transition-colors">+</button>
                         </div>
                     </div>
                 `;
@@ -277,78 +396,97 @@
         function renderSetlist() {
             const tbody = document.getElementById('setlist-body');
             const emptyState = document.getElementById('empty-state');
-            const table = document.getElementById('setlist-table');
             tbody.innerHTML = '';
 
-            if (currentGigData.setlist.length === 0) {
-                emptyState.classList.remove('hidden'); table.classList.add('hidden');
-                return;
-            }
-            emptyState.classList.add('hidden'); table.classList.remove('hidden');
+            if (currentGigData.setlist.length === 0) { emptyState.classList.remove('hidden'); emptyState.classList.add('flex'); return; }
+            emptyState.classList.add('hidden'); emptyState.classList.remove('flex');
 
             currentGigData.setlist.forEach((song, index) => {
-                let lyricsHTML = song.lyrics 
-                    ? `<div class="text-xs text-accent mt-1 cursor-pointer hover:underline" onclick="viewLyrics(${index})">View Lyrics</div>` 
-                    : '';
+                let transitionIcon = '';
+                if (index < currentGigData.setlist.length - 1) {
+                    const icon = song.transition === 'segue' ? '⏭ Segue' : '⏸ Pause';
+                    transitionIcon = `<div class="flex justify-center py-1 opacity-20 text-[10px] font-black uppercase tracking-[0.3em]">${icon}</div>`;
+                }
 
                 tbody.innerHTML += `
-                    <tr class="hover:bg-bgDeep transition-colors">
-                        <td class="p-4">
-                            <div class="font-medium text-white">${song.title}</div>
-                            ${lyricsHTML}
-                        </td>
-                        <td class="p-4 text-textSecondary">${song.genre || '-'}</td>
-                        <td class="p-4 text-textSecondary text-right font-mono text-sm">${song.duration || '0:00'}</td>
-                    </tr>
+                    <div class="group grid grid-cols-12 px-4 py-3 rounded-md hover:bg-white/10 transition-colors items-center cursor-pointer" onclick="viewLyrics(${index})">
+                        <div class="col-span-1 text-spTextSec font-bold text-sm">${index + 1}</div>
+                        <div class="col-span-7 flex flex-col">
+                            <span class="font-bold text-white text-base">${song.title}</span>
+                            <div class="flex gap-2 mt-1">
+                                ${song.key ? `<span class="text-[10px] text-accent font-bold">${song.key}</span>` : ''}
+                                ${song.bpm ? `<span class="text-[10px] text-spTextSec font-bold">${song.bpm} BPM</span>` : ''}
+                                ${song.lyrics ? `<span class="text-[10px] text-spTextSec border border-spHover px-1 rounded hover:bg-spHover">Lyrics</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="col-span-2 text-xs text-spTextSec">${song.genre || '-'}</div>
+                        <div class="col-span-2 text-right text-xs text-spTextSec font-mono">${song.duration}</div>
+                    </div>
+                    ${transitionIcon}
                 `;
             });
         }
 
-        // --- MUTATION FUNCTIONS ---
+        // Mutation & Logic Functions
+        function saveToGlobalDatabase() {
+            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
+            let index = gigs.findIndex(g => g.id === currentGigId);
+            if (index !== -1) { gigs[index] = currentGigData; localStorage.setItem('giglite_gigs', JSON.stringify(gigs)); }
+        }
+
+        function createNewGig() {
+            const name = document.getElementById('new-gig-name').value;
+            const date = document.getElementById('new-gig-date').value;
+
+            if(!name || !date) { alert("Mohon isi Nama Acara dan Tanggal!"); return; }
+
+            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
+            const newGigId = Date.now().toString();
+            const newGig = { id: newGigId, name: name, date: date, status: 'draft', format: 'Band Setup' };
+
+            gigs.unshift(newGig);
+            localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
+            localStorage.setItem('active_gig_id', newGigId);
+            
+            window.location.reload();
+        }
+
         function changeQty(index, change) {
             let newVal = currentGigData.equipment[index].count + change;
-            if (newVal >= 0) {
-                currentGigData.equipment[index].count = newVal;
-                saveToGlobalDatabase();
-                renderEquipment();
-            }
+            if (newVal >= 0) { currentGigData.equipment[index].count = newVal; saveToGlobalDatabase(); renderEquipment(); }
         }
 
         function saveFormatChange() {
             currentGigData.format = document.getElementById('gig-format').value;
             saveToGlobalDatabase();
+            updateHeroSection();
         }
 
         function submitNewEquipment() {
             const name = document.getElementById('new-eq-name').value.trim();
             if(!name) return;
             currentGigData.equipment.push({ name: name, count: 1, notes: '' });
-            saveToGlobalDatabase();
-            renderEquipment();
-            document.getElementById('new-eq-name').value = '';
-            closeModal('add-equipment-modal');
+            saveToGlobalDatabase(); renderEquipment();
+            document.getElementById('new-eq-name').value = ''; closeModal('add-equipment-modal');
         }
 
         function submitNewSong() {
             const title = document.getElementById('new-song-title').value.trim();
-            const genre = document.getElementById('new-song-genre').value.trim();
-            const duration = document.getElementById('new-song-duration').value.trim();
-            const lyrics = document.getElementById('new-song-lyrics').value.trim();
-
-            if(!title) { alert("Judul lagu wajib diisi!"); return; }
-
-            currentGigData.setlist.push({ title: title, genre: genre, duration: duration, lyrics: lyrics });
-            saveToGlobalDatabase();
-            renderSetlist();
-
-            document.getElementById('new-song-title').value = '';
-            document.getElementById('new-song-genre').value = '';
-            document.getElementById('new-song-duration').value = '';
-            document.getElementById('new-song-lyrics').value = '';
+            if(!title) { alert("Judul wajib!"); return; }
+            const song = {
+                title,
+                genre: document.getElementById('new-song-genre').value,
+                duration: document.getElementById('new-song-duration').value || '0:00',
+                key: document.getElementById('new-song-key').value,
+                bpm: document.getElementById('new-song-bpm').value,
+                transition: document.getElementById('new-song-transition').value,
+                lyrics: document.getElementById('new-song-lyrics').value
+            };
+            currentGigData.setlist.push(song);
+            saveToGlobalDatabase(); renderSetlist();
             closeModal('add-song-modal');
         }
 
-        // --- SPECIAL MODAL HANDLERS ---
         let activeEqIndexForNotes = null;
         function openRoutingModal(index) {
             activeEqIndexForNotes = index;
@@ -366,24 +504,24 @@
 
         function viewLyrics(index) {
             const song = currentGigData.setlist[index];
+            if(!song.lyrics) return;
             document.getElementById('lyrics-modal-title').innerText = song.title;
             document.getElementById('lyrics-modal-body').innerText = song.lyrics;
             openModal('view-lyrics-modal');
         }
 
-        // --- MODAL ENGINE ---
         function openModal(id) {
             const m = document.getElementById(id);
-            const c = m.querySelector('.modal-content');
             m.classList.remove('hidden');
-            setTimeout(() => { m.classList.remove('opacity-0'); c.classList.remove('scale-95'); }, 10);
+            setTimeout(() => { m.classList.remove('opacity-0'); m.querySelector('.modal-content')?.classList.remove('scale-95'); }, 10);
         }
         function closeModal(id) {
             const m = document.getElementById(id);
-            const c = m.querySelector('.modal-content');
-            m.classList.add('opacity-0'); c.classList.add('scale-95');
-            setTimeout(() => { m.classList.add('hidden'); }, 300);
+            m.classList.add('opacity-0');
+            m.querySelector('.modal-content')?.classList.add('scale-95');
+            setTimeout(() => { m.classList.add('hidden'); }, 200);
         }
+        function openCreateModal() { openModal('create-modal'); }
     </script>
 </body>
 </html>

@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - GigLite</title>
+    <title>GigLite - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        bgDeep: '#121212', surface: '#1E1E1E', surfaceHover: '#2A2A2A',
-                        accent: '#00E5FF', accentHover: '#00B8CC', textSecondary: '#B3B3B3',
-                        borderDark: '#333333', danger: '#FF5722'
+                        spBase: '#000000',       
+                        spSurface: '#121212',    
+                        spElevated: '#181818',   
+                        spHover: '#282828',      
+                        spTextSec: '#A7A7A7',    
+                        accent: '#00E5FF',       
+                        accentHover: '#00B8CC'
                     },
                     fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
@@ -21,89 +25,120 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #333333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444444; }
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #5a5a5a; border-radius: 6px; border: 3px solid #121212; }
+        ::-webkit-scrollbar-thumb:hover { background: #b3b3b3; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .glowing-logo { filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(0, 229, 255, 0.8)); }
     </style>
 </head>
-<body class="bg-bgDeep text-white h-screen flex font-sans overflow-hidden">
+<body class="bg-spBase text-white h-screen flex font-sans overflow-hidden p-2 gap-2">
 
-    <aside class="w-64 bg-surface border-r border-borderDark flex flex-col transition-transform duration-300 z-20 absolute md:relative h-full transform -translate-x-full md:translate-x-0" id="sidebar">
-        <div class="p-6 border-b border-borderDark">
-            <h2 class="text-2xl font-bold text-accent tracking-tight">GigLite</h2>
+    <aside class="w-[300px] bg-spSurface rounded-lg flex flex-col hidden md:flex h-full">
+        <div class="p-6 pb-2">
+            <div class="flex items-center gap-3 mb-8 cursor-pointer">
+                <img src="LOGO DS FIX.png" alt="Dapur Seni Logo" class="w-10 h-10 object-contain glowing-logo transition-all hover:scale-105">
+                <h2 class="text-2xl font-extrabold tracking-tight">GigLite</h2>
+            </div>
+
+            <ul class="space-y-4 font-bold text-spTextSec">
+                <li>
+                    <a href="dashboard.html" class="flex items-center gap-4 text-white transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.5 3.247a1 1 0 00-1 0L4 7.577V20h4.5v-6a1 1 0 011-1h5a1 1 0 011 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 013 0l9 5.196a1 1 0 01.5.866V21a1 1 0 01-1 1h-6.5a1 1 0 01-1-1v-6h-3v6a1 1 0 01-1 1H3a1 1 0 01-1-1V7.577a1 1 0 01.5-.866l9-5.196z"/></svg>
+                        Dashboard
+                    </a>
+                </li>
+            </ul>
         </div>
-        <nav class="flex-1 px-4 py-6 space-y-2">
-            <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 bg-surfaceHover text-accent rounded-lg font-semibold transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                Dashboard
-            </a>
-        </nav>
-        <div class="p-4 border-t border-borderDark">
-            <button onclick="window.location.href='index.html'" class="w-full text-left px-4 py-3 text-danger hover:bg-surfaceHover rounded-lg font-medium transition-colors flex items-center gap-2">
+
+        <div class="flex-1 overflow-y-auto mt-4 px-4 py-2 border-t border-spHover/50">
+            <div class="flex justify-between items-center mb-4 px-2 text-spTextSec hover:text-white transition-colors cursor-pointer" onclick="openCreateModal()">
+                <div class="flex items-center gap-2 font-bold">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"></path></svg>
+                    Your Schedules
+                </div>
+                <button class="hover:bg-spHover p-1 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg></button>
+            </div>
+            <div class="space-y-2" id="sidebar-gig-list"></div>
+        </div>
+
+        <div class="p-4 border-t border-spHover/50">
+            <button onclick="handleLogout()" class="w-full flex items-center gap-3 px-4 py-3 text-red-500 font-bold hover:bg-white/5 rounded-md transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                 Logout
             </button>
         </div>
     </aside>
 
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-70 z-10 hidden md:hidden backdrop-blur-sm" onclick="toggleSidebar()"></div>
-
-    <main class="flex-1 flex flex-col h-full overflow-hidden relative">
-        <header class="bg-surface border-b border-borderDark p-4 flex justify-between items-center md:hidden">
-            <h2 class="text-xl font-bold text-accent">GigLite</h2>
-            <button onclick="toggleSidebar()" class="text-textSecondary hover:text-white focus:outline-none">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </header>
-
-        <div class="flex-1 overflow-y-auto p-6 md:p-10">
-            <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-10 gap-6">
-                <div>
-                    <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight">Welcome back, <span class="text-accent">Performer!</span></h1>
-                    <p class="text-textSecondary text-lg md:text-xl" id="dashboard-subtitle">Memuat jadwal...</p>
-                </div>
-                <button onclick="openCreateModal()" class="bg-accent hover:bg-accentHover text-black font-bold py-3.5 px-8 rounded-xl transition duration-300 shadow-[0_0_20px_rgba(0,229,255,0.3)] active:scale-95 flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    Create New Gig Schedule
+    <main class="flex-1 bg-spSurface rounded-lg flex flex-col relative h-full overflow-hidden">
+        
+        <header class="h-16 flex items-center justify-between px-6 bg-spSurface/90 backdrop-blur-md sticky top-0 z-20">
+            <div class="flex gap-2">
+                <button class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-spTextSec cursor-not-allowed"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>
+                <button class="w-8 h-8 rounded-full bg-black/50 flex items-center justify-center text-spTextSec cursor-not-allowed"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openCreateModal()" class="hidden md:block bg-white text-black text-sm font-bold px-4 py-1.5 rounded-full hover:scale-105 transition-transform">Create Schedule</button>
+                <button onclick="handleLogout()" class="w-8 h-8 rounded-full bg-spHover flex items-center justify-center border-4 border-black hover:scale-105 transition-transform" title="Logout">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Farrel" alt="Profile" class="rounded-full">
                 </button>
             </div>
+        </header>
 
-            <div id="gigs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="flex-1 overflow-y-auto pb-10">
+            <div class="h-64 bg-gradient-to-b from-[#1E3A8A] to-spSurface absolute top-0 left-0 w-full z-0 opacity-40 pointer-events-none"></div>
+
+            <div class="relative z-10 px-6 pt-4">
+                <h1 class="text-3xl font-bold mb-6 tracking-tight">Welcome Back, Performer</h1>
+
+                <div class="mb-10">
+                    <div class="flex justify-between items-end mb-4">
+                        <h2 class="text-2xl font-bold hover:underline cursor-pointer">Your Schedules</h2>
+                        <span class="text-sm font-bold text-spTextSec hover:underline cursor-pointer" onclick="openCreateModal()">Add New</span>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="gigs-container">
+                        </div>
                 </div>
+
+                <div id="archive-section" class="mb-8 hidden border-t border-spHover pt-6">
+                    <h2 class="text-xl font-bold mb-4 text-spTextSec">Archived Schedules</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 opacity-70" id="archived-gigs-container">
+                        </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <div id="create-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-surface border border-borderDark p-8 rounded-2xl w-11/12 max-w-md transform scale-95 transition-transform duration-300 shadow-2xl" id="create-modal-content">
-            <div class="flex justify-between items-start mb-6">
-                <h2 class="text-2xl font-bold text-accent">New Gig Schedule</h2>
-                <button onclick="closeCreateModal()" class="text-textSecondary hover:text-white transition-colors bg-surfaceHover p-1 rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
+    <div id="create-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden opacity-0 transition-opacity duration-200">
+        <div class="bg-spElevated p-6 rounded-lg w-11/12 max-w-md shadow-2xl transform scale-95 transition-transform duration-200" id="create-modal-content">
+            <h2 class="text-2xl font-bold mb-6 text-center">Buat Jadwal Baru</h2>
             <div class="space-y-4 mb-8">
                 <div>
-                    <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Event Name</label>
-                    <input type="text" id="new-gig-name" placeholder="e.g. Campus Festival 2026" class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent">
+                    <label class="block text-sm font-bold mb-2">Nama Acara</label>
+                    <input type="text" id="new-gig-name" placeholder="Tambahkan nama acara" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent">
                 </div>
                 <div>
-                    <label class="block text-textSecondary text-sm font-bold uppercase mb-2">Event Date</label>
-                    <input type="date" id="new-gig-date" class="w-full bg-bgDeep text-white border border-borderDark rounded-xl p-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent">
+                    <label class="block text-sm font-bold mb-2">Tanggal</label>
+                    <input type="date" id="new-gig-date" class="w-full bg-spHover text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-accent [color-scheme:dark]">
                 </div>
             </div>
-            <div class="flex justify-end gap-3 pt-6 border-t border-borderDark">
-                <button onclick="closeCreateModal()" class="px-6 py-2.5 border border-borderDark text-white hover:bg-surfaceHover rounded-xl transition-colors font-medium">Cancel</button>
-                <button onclick="createNewGig()" class="px-6 py-2.5 bg-accent text-black font-bold hover:bg-accentHover rounded-xl transition-colors shadow-lg">Create Workspace</button>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeCreateModal()" class="px-6 py-3 text-white font-bold hover:scale-105 transition-transform">Batal</button>
+                <button onclick="createNewGig()" class="px-8 py-3 bg-accent text-black font-bold rounded-full hover:scale-105 transition-transform">Simpan</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. INISIALISASI DATABASE LOKAL (SEEDING) ---
+        function handleLogout() {
+            localStorage.removeItem('giglite_session');
+            localStorage.removeItem('active_gig_id');
+            window.location.href = 'index.html';
+        }
+
         function initDatabase() {
             let gigs = localStorage.getItem('giglite_gigs');
-            // Jika belum ada data sama sekali, kita buat data bawaan
             if (!gigs) {
                 const initialData = [
                     { id: '1715000000000', name: 'WaguFast Pre-Event', date: '2026-05-15', status: 'draft', format: 'Full Band' },
@@ -113,148 +148,156 @@
             }
         }
 
-        // --- 2. FUNGSI READ (RENDER CARDS) ---
+        function getInitialGradient(str) {
+            const charCode = str.charCodeAt(0) || 0;
+            const colors = [
+                'from-purple-600 to-blue-600', 'from-green-500 to-emerald-700', 
+                'from-orange-500 to-red-600', 'from-pink-500 to-rose-700',
+                'from-cyan-500 to-blue-700'
+            ];
+            return colors[charCode % colors.length];
+        }
+
         function renderGigs() {
             const container = document.getElementById('gigs-container');
-            const subtitle = document.getElementById('dashboard-subtitle');
-            container.innerHTML = ''; // Bersihkan kontainer
+            const archiveContainer = document.getElementById('archived-gigs-container');
+            const archiveSection = document.getElementById('archive-section');
+            const sidebarList = document.getElementById('sidebar-gig-list');
+            
+            container.innerHTML = '';
+            archiveContainer.innerHTML = '';
+            sidebarList.innerHTML = '';
             
             let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
-            
-            subtitle.innerText = `You have ${gigs.length} events coming up.`;
+            let activeGigs = gigs.filter(g => g.status !== 'archived');
+            let archivedGigs = gigs.filter(g => g.status === 'archived');
 
-            gigs.forEach(gig => {
+            // Render Active Gigs
+            activeGigs.forEach(gig => {
                 const isFinalized = gig.status === 'finalized';
-                const statusColor = isFinalized ? 'text-green-500 bg-green-500/20 border-green-500/30' : 'text-yellow-500 bg-yellow-500/20 border-yellow-500/30';
-                
-                // Card Template
+                const gradient = getInitialGradient(gig.name);
+                const initial = gig.name.charAt(0).toUpperCase();
+
                 const cardHTML = `
-                    <div class="bg-surface border border-borderDark hover:border-accent p-7 rounded-2xl transition duration-300 transform hover:-translate-y-2 group flex flex-col relative">
+                    <div class="bg-spElevated hover:bg-spHover p-4 rounded-md transition duration-300 group cursor-pointer relative flex flex-col" onclick="openWorkspace('${gig.id}')">
                         
-                        <button onclick="deleteGig('${gig.id}', event)" class="absolute top-4 right-4 text-textSecondary hover:text-danger p-2 bg-bgDeep rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10" title="Delete Gig">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all z-10">
+                            <button onclick="toggleArchive(event, '${gig.id}', true)" class="bg-black/60 hover:bg-black text-white p-2 rounded-full shadow-lg" title="Arsipkan Jadwal">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                            </button>
+                            <button onclick="deleteGig(event, '${gig.id}')" class="bg-black/60 hover:bg-red-600 text-white p-2 rounded-full shadow-lg" title="Hapus Permanen">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+
+                        <div class="w-full aspect-square bg-gradient-to-br ${gradient} rounded-md mb-4 shadow-[0_8px_24px_rgba(0,0,0,0.5)] flex items-center justify-center text-6xl font-bold">
+                            ${initial}
+                        </div>
+                        <h3 class="font-bold text-base mb-1 truncate pr-14">${gig.name}</h3>
+                        <p class="text-sm text-spTextSec line-clamp-2">${gig.date} • ${isFinalized ? 'Finalized' : 'Draft'}</p>
+                        
+                        <button class="absolute right-6 top-[45%] translate-y-4 bg-accent rounded-full p-3.5 text-black opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl hover:scale-105 hover:bg-accentHover" onclick="event.stopPropagation(); openWorkspace('${gig.id}')">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
                         </button>
-
-                        <div class="flex justify-between items-start gap-4 mb-6 cursor-pointer" onclick="openWorkspace('${gig.id}')">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-bold group-hover:text-accent transition-colors mb-2 leading-tight pr-8">${gig.name}</h3>
-                                <p class="text-textSecondary flex items-center gap-2 text-sm">
-                                    <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                    ${gig.date}
-                                </p>
-                            </div>
-                            <span class="shrink-0 text-[10px] uppercase font-black px-2.5 py-1 rounded-full border mt-1 ${statusColor}">${gig.status}</span>
-                        </div>
-
-                        <div class="border-t border-borderDark pt-5 flex justify-between items-center mt-auto">
-                            <button onclick="toggleStatus('${gig.id}')" class="text-xs font-bold uppercase border px-3 py-1 rounded ${isFinalized ? 'border-borderDark text-textSecondary hover:text-white' : 'border-accent text-accent hover:bg-accent/10'} transition-colors">
-                                ${isFinalized ? 'Mark as Draft' : 'Mark as Finalized'}
-                            </button>
-
-                            <button onclick="openWorkspace('${gig.id}')" class="text-accent font-bold text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                                ${isFinalized ? 'View Export' : 'Edit Rider'} <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </button>
-                        </div>
                     </div>
                 `;
                 container.innerHTML += cardHTML;
+
+                sidebarList.innerHTML += `
+                    <div class="flex items-center gap-3 p-2 hover:bg-spHover rounded-md cursor-pointer transition-colors" onclick="openWorkspace('${gig.id}')">
+                        <div class="w-12 h-12 rounded bg-gradient-to-br ${gradient} flex shrink-0 items-center justify-center text-lg font-bold shadow-md">${initial}</div>
+                        <div class="overflow-hidden">
+                            <h4 class="font-bold text-sm truncate text-white">${gig.name}</h4>
+                            <p class="text-xs text-spTextSec truncate">${isFinalized ? 'Event' : 'Draft'}</p>
+                        </div>
+                    </div>
+                `;
             });
 
-            // Tambahkan Card "Create New" di akhir
-            const newCardHTML = `
-                <div onclick="openCreateModal()" class="border-2 border-dashed border-borderDark hover:border-accent bg-transparent p-7 rounded-2xl transition duration-300 flex flex-col items-center justify-center text-center cursor-pointer min-h-[200px] group">
-                    <div class="bg-surface p-5 rounded-full mb-4 group-hover:bg-accent/10 transition-colors">
-                        <svg class="w-8 h-8 text-textSecondary group-hover:text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    </div>
-                    <p class="text-textSecondary group-hover:text-white font-bold transition-colors">Schedule New Gig</p>
-                </div>
-            `;
-            container.innerHTML += newCardHTML;
+            // Render Archived Gigs
+            if (archivedGigs.length > 0) {
+                archiveSection.classList.remove('hidden');
+                archivedGigs.forEach(gig => {
+                    const gradient = getInitialGradient(gig.name);
+                    const initial = gig.name.charAt(0).toUpperCase();
+
+                    const archHTML = `
+                        <div class="bg-spElevated hover:bg-spHover p-4 rounded-md transition duration-300 group cursor-pointer relative flex flex-col filter grayscale hover:grayscale-0">
+                            
+                            <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-all z-10">
+                                <button onclick="toggleArchive(event, '${gig.id}', false)" class="bg-black/60 hover:bg-black text-white p-2 rounded-full shadow-lg" title="Kembalikan (Restore)">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path></svg>
+                                </button>
+                                <button onclick="deleteGig(event, '${gig.id}')" class="bg-black/60 hover:bg-red-600 text-white p-2 rounded-full shadow-lg" title="Hapus Permanen">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+
+                            <div class="w-full aspect-square bg-gradient-to-br ${gradient} rounded-md mb-4 flex items-center justify-center text-6xl font-bold opacity-50 group-hover:opacity-100">
+                                ${initial}
+                            </div>
+                            <h3 class="font-bold text-base mb-1 truncate pr-14">${gig.name}</h3>
+                            <p class="text-sm text-spTextSec">Archived</p>
+                        </div>
+                    `;
+                    archiveContainer.innerHTML += archHTML;
+                });
+            } else {
+                archiveSection.classList.add('hidden');
+            }
         }
 
-        // --- 3. FUNGSI CREATE ---
+        // --- FUNGSI HAPUS (DELETE) ---
+        function deleteGig(event, id) {
+            event.stopPropagation(); // Mencegah klik menyebar ke kartu
+            if(confirm('Apakah kamu yakin ingin menghapus jadwal ini secara permanen?')) {
+                let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
+                gigs = gigs.filter(g => g.id !== id);
+                localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
+                renderGigs();
+            }
+        }
+
+        // --- FUNGSI ARSIP (ARCHIVE/RESTORE) ---
+        function toggleArchive(event, id, toArchive) {
+            event.stopPropagation();
+            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
+            let gig = gigs.find(g => g.id === id);
+            if(gig) {
+                // Jika toArchive true, jadikan archived. Jika false, kembalikan ke draft.
+                gig.status = toArchive ? 'archived' : 'draft'; 
+                localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
+                renderGigs();
+            }
+        }
+
         function createNewGig() {
             const name = document.getElementById('new-gig-name').value;
             const date = document.getElementById('new-gig-date').value;
 
-            if(!name || !date) { alert("Mohon isi Nama Event dan Tanggal!"); return; }
+            if(!name || !date) { alert("Mohon isi Nama Acara dan Tanggal!"); return; }
 
-            // Baca array saat ini
             let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
-            
-            // Buat objek baru dengan ID unik berbasis waktu (timestamp)
             const newGigId = Date.now().toString();
-            const newGig = {
-                id: newGigId,
-                name: name,
-                date: date,
-                status: 'draft',
-                format: 'Band Setup' // Default format
-            };
+            const newGig = { id: newGigId, name: name, date: date, status: 'draft', format: 'Band Setup' };
 
-            // Simpan ke array
-            gigs.push(newGig);
+            gigs.unshift(newGig);
             localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
-
-            // Set gig aktif dan pindah ke workspace
             localStorage.setItem('active_gig_id', newGigId);
+            
             window.location.href = 'workspace.html';
         }
 
-        // --- 4. FUNGSI DELETE ---
-        function deleteGig(id, event) {
-            event.stopPropagation(); // Mencegah klik menyebar ke card (agar tidak membuka workspace)
-            
-            if(confirm("Apakah kamu yakin ingin menghapus jadwal ini? Data tidak dapat dikembalikan.")) {
-                let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
-                // Filter array: buang gig yang ID-nya sama dengan yang dihapus
-                gigs = gigs.filter(gig => gig.id !== id);
-                localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
-                
-                renderGigs(); // Render ulang tampilan
-            }
-        }
-
-        // --- 5. FUNGSI UPDATE STATUS ---
-        function toggleStatus(id) {
-            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
-            // Cari gig berdasarkan ID
-            let gigIndex = gigs.findIndex(gig => gig.id === id);
-            
-            if (gigIndex !== -1) {
-                // Balikkan status
-                gigs[gigIndex].status = gigs[gigIndex].status === 'draft' ? 'finalized' : 'draft';
-                localStorage.setItem('giglite_gigs', JSON.stringify(gigs));
-                renderGigs(); // Render ulang tampilan
-            }
-        }
-
-        // --- NAVIGASI ---
         function openWorkspace(id) {
-            let gigs = JSON.parse(localStorage.getItem('giglite_gigs')) || [];
-            let targetGig = gigs.find(g => g.id === id);
-            
             localStorage.setItem('active_gig_id', id);
-
-            if (targetGig && targetGig.status === 'finalized') {
-                window.location.href = 'export.html'; // Jika final, langsung ke Export
-            } else {
-                window.location.href = 'workspace.html';
-            }
+            window.location.href = 'workspace.html';
         }
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('-translate-x-full');
-            document.getElementById('mobile-overlay').classList.toggle('hidden');
-        }
-
-        // Modal Logic
         const createModal = document.getElementById('create-modal');
         const createModalContent = document.getElementById('create-modal-content');
         function openCreateModal() { createModal.classList.remove('hidden'); setTimeout(() => { createModal.classList.remove('opacity-0'); createModalContent.classList.remove('scale-95'); }, 10); }
-        function closeCreateModal() { createModal.classList.add('opacity-0'); createModalContent.classList.add('scale-95'); setTimeout(() => { createModal.classList.add('hidden'); }, 300); }
+        function closeCreateModal() { createModal.classList.add('opacity-0'); createModalContent.classList.add('scale-95'); setTimeout(() => { createModal.classList.add('hidden'); }, 200); }
 
-        // --- JALANKAN SAAT HALAMAN DIMUAT ---
         window.onload = () => {
             initDatabase();
             renderGigs();
